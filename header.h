@@ -34,7 +34,7 @@ typedef struct s_img
 {
 	void *img_ptr;
 	char *addr;
-	int bite_pxl;
+	int bpp;
 	int line_len;
 	int endiant;
 } t_img;
@@ -85,8 +85,9 @@ int parse_map(char *first_line,int fd, t_datagame *data);
 int check_walls(t_datagame *data);
 int valid_map(t_datagame *data);
 int check_neighbor(t_datagame *data, int y, int x);
-
-
+void init_data(t_datagame *data);
+int draw_backround(t_datagame *data);
+static void	put_pixel(t_datagame *data, int x, int y, int color);
 
 
 

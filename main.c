@@ -91,7 +91,7 @@ int main(int ac, char **av)
         close_window(&data);
 
     data.img->addr = mlx_get_data_addr(data.img->img_ptr, &data.img->bpp, 
-                                     &data.img->line_len, &data.img->endian);
+                                     &data.img->line_len, &data.img->endiant);
     if (!data.img->addr)
         close_window(&data);
 
