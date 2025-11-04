@@ -13,16 +13,14 @@ INC_DIRS = -I./includes -I./libft
 # --- Fichiers Source (.c) ---
 # (Ajoutez TOUS vos fichiers .c ici, séparés par un \)
 SRCS =  main.c \
-		init.c \
-		render.c \
-		parse.c \
-		parse_texture.c \
-		parse_color.c \
-		parse_map.c \
-		validate_map.c \
-		check_walls.c \
-		parse_utils.c \
-		utils1.c # (J'ai séparé les fonctions logiquement)
+        init.c \
+        render.c \
+        parse.c \
+        parse_texture.c \
+        parse_color.c \
+        parse_map.c \
+        parse_utils.c \
+        utils1.c # (J'ai séparé les fonctions logiquement)
 
 # --- Fichiers Objet (.o) ---
 # (Généré automatiquement, pas besoin de toucher)
@@ -34,12 +32,24 @@ LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 # 2. miniLibX (MLX)
-# (Décommentez les 2 lignes pour votre OS)
+UNAME_S := $(shell uname -s)
+
+ifeq ($(UNAME_S),Darwin)
+    # macOS - adjust MLX_PATH if your minilibx is installed elsewhere
+    MLX_PATH ?= /usr/local
+    MLX_FLAGS = -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit -lm
+    INC_DIRS += -I$(MLX_PATH)/include
+else
+    # Linux
+    MLX_PATH ?= /usr
+    MLX_FLAGS = -L$(MLX_PATH)/lib -lmlx -lXext -lX11 -lm
+    INC_DIRS += -I$(MLX_PATH)/include
+endif
 
 # --- Pour LINUX ---
 # (Suppose que mlx est dans /usr/lib et mlx.h dans /usr/include)
-MLX_FLAGS = -L/usr/lib -lmlx -lXext -lX11 -lm
-INC_DIRS += -I/usr/include
+# MLX_FLAGS = -L/usr/lib -lmlx -lXext -lX11 -lm
+# INC_DIRS += -I/usr/include
 # ---
 
 # --- Pour macOS ---

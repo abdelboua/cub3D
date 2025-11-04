@@ -39,7 +39,7 @@ int	valid_map(t_datagame *data)
 
 int	check_neighbor(t_datagame *data, int y, int x)
 {
-	if (x >= ft_strlen(data->map[y]))
+	if (x >= (int)ft_strlen(data->map[y]))
 		return (ERROR);
 	if (data->map[y][x] == ' ')
 		return (ERROR);
@@ -72,7 +72,7 @@ int	check_walls(t_datagame *data)
 					return (ERROR);
 				if (check_neighbor(data, y, x - 1) == ERROR)
 					return (ERROR);
-				if (x == ft_strlen(data->map[y]) - 1)
+				if (x == (int)ft_strlen(data->map[y]) - 1)
 					return (ERROR);
 				if (check_neighbor(data, y, x + 1) == ERROR)
 					return (ERROR);
