@@ -6,7 +6,8 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include "./libft/libft.h"
-# include "./minilibx-linux/mlx.h"
+#include "./minilibx-linux/mlx.h"
+#include "./get_next_line/get_next_line.h"
 
 
 #define HEIGHT 800
@@ -80,14 +81,15 @@ int parse_texture_we(char *line, t_datagame *data);
 int	parse_fcolor(char *line, t_datagame *data);
 int	parse_ccolor(char *line, t_datagame *data);
 
+int	process_line(char *line, t_datagame *data);
 int	parse_file(char *filename, t_datagame *data);
 int parse_map(char *first_line,int fd, t_datagame *data);
 int check_walls(t_datagame *data);
 int valid_map(t_datagame *data);
 int check_neighbor(t_datagame *data, int y, int x);
 void init_data(t_datagame *data);
-int draw_backround(t_datagame *data);
-static void	put_pixel(t_datagame *data, int x, int y, int color);
+int draw_background(t_datagame *data);
+// static void	put_pixel(t_datagame *data, int x, int y, int color);
 
 
 

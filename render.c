@@ -11,7 +11,7 @@ static void	put_pixel(t_datagame *data, int x, int y, int color)
 	*(unsigned int *)pixel = color;
 }
 
-int draw_backround(t_datagame *data)
+int draw_background(t_datagame *data)
 {
 	int y;
 	int x;
@@ -21,7 +21,7 @@ int draw_backround(t_datagame *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-			put_pixel(data->img, x, y, data->ceiling_color);
+			put_pixel(data, x, y, data->ceiling_color);
 			x++;
 		}
 		y++;
@@ -31,7 +31,7 @@ int draw_backround(t_datagame *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-			put_pixel(data->img, x,  y, data->floor_color);
+			put_pixel(data, x,  y, data->floor_color);
 			x++;
 		}
 		y++;
