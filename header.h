@@ -99,7 +99,7 @@ int ft_strlen_array(char **arr);
 void free_array(char **arr);
 int ft_lstadd_back_new(t_list **list, void *content);
 void cleanup_data(t_datagame *data);
-static int	is_valid_number(char *str);
-int	is_empty_line(char *line);
+int	is_valid_number(char *str);
+
 
 #endif

@@ -61,7 +61,7 @@ void cleanup_data(t_datagame *data)
         free_array(data->map);
 }
 
-static int	is_valid_number(char *str)
+int	is_valid_number(char *str)
 {
     int	i;
 
@@ -71,20 +71,6 @@ static int	is_valid_number(char *str)
         if (str[i] == ' ' || str[i] == '\t')
             return (0);
         if (!ft_isdigit(str[i]))
-            return (0);
-        i++;
-    }
-    return (1);
-}
-
-int	is_empty_line(char *line)
-{
-    int	i;
-
-    i = 0;
-    while (line[i] != '\0')
-    {
-        if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
             return (0);
         i++;
     }

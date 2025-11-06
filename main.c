@@ -24,84 +24,33 @@ int handle_escape(int keycode, t_datagame *data)
 	}
 	return (0);
 }
-// int main(int ac, char **av)
-// {
-// 	t_datagame data;
-// 	if(ac != 2)
-// 	{
-// 		ft_putstr_fd("Error "\nUsage ./cub3D map.cub\n", 2);
-// 		return (ERROR);
-// 	}
-// 	init_data(&data);
-// 	if(parse_file(av[1], &data) == ERROR)
-// 		return ERROR;
-// 	data.mlx = mlx_init();
-// 	if(data.mlx == NULL)
-// 	{
-// 		ft_putstr_fd("Error : Failed to initialize mlx\n", 2);
-// 		return ERROR;
-// 	}
-// 	data.win = mlx_new_window(data.mlx, HEIGHT, WIDTH, "cub3d");
-// 	if(data.win == NULL)
-// 	{
-// 		ft_putstr_fd("Error : Failed to create window\n", 2);
-// 		free(data.mlx);
-// 		return (ERROR);
-// 	}
-// 	mlx_key_hook(data.win, handle_escape, &data);
-// 	mlx_hook(data.win, 17, 0, close_window, &data);
-// 	mlx_loop(data.mlx);
-// }
 
 int main(int ac, char **av)
 {
-    t_datagame data;
-
-    if (ac != 2)
-    {
-        ft_putstr_fd("Error\nUsage: ./cub3D map.cub\n", 2); // CORRIGÉ
-        return (ERROR);
-    }
-    init_data(&data);
-    if (parse_file(av[1], &data) == ERROR)
-        return ERROR;
-
-    // --- Initialisation MLX (Ton code était parfait) ---
-    data.mlx = mlx_init();
-    if (data.mlx == NULL)
-    {
-        ft_putstr_fd("Error\nFailed to initialize mlx\n", 2);
-        return ERROR;
-    }
-    data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "cub3d");
-    if (data.win == NULL)
-    {
-        ft_putstr_fd("Error\nFailed to create window\n", 2);
-        free(data.mlx);
-        return (ERROR);
-    }
-
-    // --- CRÉATION DE L'IMAGE-BROUILLON ---
-    data.img = malloc(sizeof(t_img));
-    if (!data.img)
-        close_window(&data); // Ta fonction de nettoyage gère ça
-        
-    data.img->img_ptr = mlx_new_image(data.mlx, WIDTH, HEIGHT);
-    if (!data.img->img_ptr)
-        close_window(&data);
-
-    data.img->addr = mlx_get_data_addr(data.img->img_ptr, &data.img->bpp, 
-                                     &data.img->line_len, &data.img->endiant);
-    if (!data.img->addr)
-        close_window(&data);
-
-    // --- DESSIN ET AFFICHAGE ---
-    draw_background(&data); // Dessine sur le brouillon
-    mlx_put_image_to_window(data.mlx, data.win, data.img->img_ptr, 0, 0); // Plaque le brouillon
-
-    // --- Hooks (Ton code était parfait) ---
-    mlx_key_hook(data.win, handle_escape, &data);
-    mlx_hook(data.win, 17, 0, close_window, &data);
-    
-    mlx_loop(data.mlx); 
+	t_datagame data;
+	if(ac != 2)
+	{
+		ft_putstr_fd("Error : Usage ./cub3D map.cub\n", 2);
+		return (ERROR);
+	}
+	init_data(&data);
+	if(parse_file(av[1], &data) == ERROR)
+		return ERROR;
+	data.mlx = mlx_init();
+	if(data.mlx == NULL)
+	{
+		ft_putstr_fd("Error : Failed to initialize mlx\n", 2);
+		return ERROR;
+	}
+	data.win = mlx_new_window(data.mlx, HEIGHT, WIDTH, "cub3d");
+	if(data.win == NULL)
+	{
+		ft_putstr_fd("Error : Failed to create window\n", 2);
+		free(data.mlx);
+		return (ERROR);
+	}
+	mlx_key_hook(data.win, handle_escape, &data);
+	mlx_hook(data.win, 17, 0, close_window, &data);
+	mlx_loop(data.mlx);
 }
+
