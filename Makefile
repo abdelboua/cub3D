@@ -30,8 +30,8 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
 # --- MiniLibX Linux (version 42) ---
 MLX_DIR = ./minilibx-linux
-MLX_LIB = $(MLX_DIR)/libmlx.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
+MLX_LIB = $(MLX_DIR)/libmlx_Linux.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm
 
 # --- Couleurs ---
 GREEN = \033[1;32m
@@ -43,27 +43,30 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT_LIB) $(MLX_LIB)
-    @$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft $(MLX_FLAGS) -o $(NAME)
-    @echo "$(GREEN)✔ cub3D compilé avec succès !$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft $(MLX_FLAGS) -o $(NAME)
+	@echo "$(GREEN)✔ cub3D compilé avec succès !$(RESET)"
 
 $(LIBFT_LIB):
-    @make bonus -C $(LIBFT_DIR)
+	@make bonus -C $(LIBFT_DIR)
 
 $(MLX_LIB):
-    @make -C $(MLX_DIR) 2>/dev/null || true
+	@if [ ! -f $(MLX_LIB) ]; then \
+		echo "$(CYAN)🔨 Compilation de la MiniLibX...$(RESET)"; \
+		make -C $(MLX_DIR); \
+	fi
 
 %.o: %.c
-    @$(CC) $(CFLAGS) $(INC_DIRS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INC_DIRS) -c $< -o $@
 
 clean:
-    @make -C $(LIBFT_DIR) clean
-    @rm -f $(OBJS)
-    @echo "$(BLUE)🧹 Fichiers objets supprimés.$(RESET)"
+	@make -C $(LIBFT_DIR) clean
+	@rm -f $(OBJS)
+	@echo "$(BLUE)🧹 Fichiers objets supprimés.$(RESET)"
 
 fclean: clean
-    @make -C $(LIBFT_DIR) fclean
-    @rm -f $(NAME)
-    @echo "$(CYAN)🧹 Projet complètement nettoyé.$(RESET)"
+	@make -C $(LIBFT_DIR) fclean
+	@rm -f $(NAME)
+	@echo "$(CYAN)🧹 Projet complètement nettoyé.$(RESET)"
 
 re: fclean all
 
