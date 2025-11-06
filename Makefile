@@ -31,7 +31,7 @@ LIBFT_LIB = $(LIBFT_DIR)/libft.a
 # --- MiniLibX Linux (version 42) ---
 MLX_DIR = ./minilibx-linux
 MLX_LIB = $(MLX_DIR)/libmlx_Linux.a
-MLX_FLAGS = -L$(MLX_DIR) -lmlx_Linux -lXext -lX11 -lm
+MLX_FLAGS = -L$(MLX_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 
 # --- Couleurs ---
 GREEN = \033[1;32m
@@ -52,7 +52,7 @@ $(LIBFT_LIB):
 $(MLX_LIB):
 	@if [ ! -f $(MLX_LIB) ]; then \
 		echo "$(CYAN)🔨 Compilation de la MiniLibX...$(RESET)"; \
-		make -C $(MLX_DIR); \
+		cd $(MLX_DIR) && ./configure && make; \
 	fi
 
 %.o: %.c
