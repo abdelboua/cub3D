@@ -1,17 +1,14 @@
-# --- Nom de votre exécutable ---
+# --- Nom de l'exécutable ---
 NAME = cub3D
 
-# --- Compilateur et Flags ---
-# (Le sujet impose 'cc' et ces flags)
+# --- Compilateur ---
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
-# --- Chemins vers les Headers ---
-# (Modifiez './includes' si votre .h est ailleurs)
-INC_DIRS = -I./includes -I./libft
+# --- Includes ---
+INC_DIRS = -I./includes -I./libft -I./minilibx-linux
 
-# --- Fichiers Source (.c) ---
-# (Ajoutez TOUS vos fichiers .c ici, séparés par un \)
+# --- Sources ---
 SRCS =  main.c \
         init.c \
         render.c \
@@ -19,82 +16,58 @@ SRCS =  main.c \
         parse_texture.c \
         parse_color.c \
         parse_map.c \
-        parse_utils.c \
-        utils1.c # (J'ai séparé les fonctions logiquement)
+        utils1.c \
+        get_next_line/get_next_line.c \
+        get_next_line/get_next_line_utils.c
 
-# --- Fichiers Objet (.o) ---
-# (Généré automatiquement, pas besoin de toucher)
 OBJS = $(SRCS:.c=.o)
 
-# --- Bibliothèques ---
-# 1. Libft
+# --- Libft ---
 LIBFT_DIR = ./libft
 LIBFT_LIB = $(LIBFT_DIR)/libft.a
 
-# 2. miniLibX (MLX)
-UNAME_S := $(shell uname -s)
 
-ifeq ($(UNAME_S),Darwin)
-    # macOS - adjust MLX_PATH if your minilibx is installed elsewhere
-    MLX_PATH ?= /usr/local
-    MLX_FLAGS = -L$(MLX_PATH) -lmlx -framework OpenGL -framework AppKit -lm
-    INC_DIRS += -I$(MLX_PATH)/include
-else
-    # Linux
-    MLX_PATH ?= /usr
-    MLX_FLAGS = -L$(MLX_PATH)/lib -lmlx -lXext -lX11 -lm
-    INC_DIRS += -I$(MLX_PATH)/include
-endif
+# --- MiniLibX Linux (version 42) ---
+MLX_DIR = ./minilibx-linux
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -lXext -lX11 -lm
 
-# --- Pour LINUX ---
-# (Suppose que mlx est dans /usr/lib et mlx.h dans /usr/include)
-# MLX_FLAGS = -L/usr/lib -lmlx -lXext -lX11 -lm
-# INC_DIRS += -I/usr/include
-# ---
+# --- Couleurs ---
+GREEN = \033[1;32m
+BLUE  = \033[1;34m
+CYAN  = \033[1;36m
+RESET = \033[0m
 
-# --- Pour macOS ---
-# (!! Changez /opt/X11 pour le chemin où est installée votre minilibx)
-# MLX_PATH = /opt/X11 
-# MLX_FLAGS = -L$(MLX_PATH)/lib -lmlx -framework OpenGL -framework AppKit -lm
-# INC_DIRS += -I$(MLX_PATH)/include
-# ---
-
-# --- Règles de Compilation ---
-
-# Règle par défaut (quand on tape 'make')
+# --- Règles principales ---
 all: $(NAME)
 
-# Règle pour créer l'exécutable final
-$(NAME): $(OBJS) $(LIBFT_LIB)
-	@$(CC) $(CFLAGS) $(OBJS) $(LIBFT_LIB) $(MLX_FLAGS) -o $(NAME)
-	@echo "cub3D compilé avec succès !"
+$(NAME): $(OBJS) $(LIBFT_LIB) $(MLX_LIB)
+	@$(CC) $(CFLAGS) $(OBJS) -L$(LIBFT_DIR) -lft $(MLX_FLAGS) -o $(NAME)
+	@echo "$(GREEN)✔ cub3D compilé avec succès !$(RESET)"
 
-# Règle pour compiler la libft
 $(LIBFT_LIB):
-	@make -C $(LIBFT_DIR)
+	@make bonus -C $(LIBFT_DIR)
 
-# Règle générique pour transformer un .c en .o
+
+$(MLX_LIB):
+	@make -C $(MLX_DIR)
+
 %.o: %.c
 	@$(CC) $(CFLAGS) $(INC_DIRS) -c $< -o $@
 
-# Nettoie les fichiers objet (.o)
 clean:
 	@make -C $(LIBFT_DIR) clean
+	@make -C $(MLX_DIR) clean
 	@rm -f $(OBJS)
-	@echo "Fichiers objets (.o) nettoyés."
+	@echo "$(BLUE)🧹 Fichiers objets supprimés.$(RESET)"
 
-# Nettoie tout (objets + exécutable)
 fclean: clean
 	@make -C $(LIBFT_DIR) fclean
 	@rm -f $(NAME)
-	@echo "Projet entièrement nettoyé."
+	@echo "$(CYAN)🧹 Projet complètement nettoyé.$(RESET)"
 
-# Recompile tout
 re: fclean all
 
-# Règle Bonus (requise par le sujet)
-# Pour l'instant, elle fait comme 'all'.
 bonus: all
 
-# Précise que ces règles ne créent pas de "vrais" fichiers
 .PHONY: all clean fclean re bonus
