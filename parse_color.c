@@ -55,6 +55,11 @@ int	parse_fcolor(char *line, t_datagame *data)
 	}
 	while (i < 3)
 	{
+		if(!is_valid_number(rgb_strings[i]))
+		{
+			free_array(rgb_strings);
+			return (ERROR);
+		}
 		rgb_values[i] = ft_atoi(rgb_strings[i]);
 		if (rgb_values[i] < 0 || rgb_values[i] > 255)
 		{

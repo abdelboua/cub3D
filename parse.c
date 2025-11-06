@@ -17,7 +17,10 @@ int	parse_file(char *filename, t_datagame *data)
 	{
 		status = process_line(line, data);
 		if (status == LINE_MAP)
+		{
+			free(line);
 			break ;
+		}
 		if (status == PARSING_ERROR)
 		{
 			free(line);

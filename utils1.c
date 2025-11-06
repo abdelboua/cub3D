@@ -45,3 +45,48 @@ int ft_lstadd_back_new(t_list **list, void *content)
     ft_lstadd_back(list, new_node);
     return (SUCCESS);
 }
+void cleanup_data(t_datagame *data)
+{
+	if (data->north_texture)
+        free(data->north_texture);
+    if (data->south_texture)
+        free(data->south_texture);
+    if (data->west_texture)
+        free(data->west_texture);
+    if (data->east_texture)
+        free(data->east_texture);
+    if (data->map_firstline)
+        free(data->map_firstline);
+    if (data->map)
+        free_array(data->map);
+}
+
+static int	is_valid_number(char *str)
+{
+    int	i;
+
+    i = 0;
+    while (str[i])
+    {
+        if (str[i] == ' ' || str[i] == '\t')
+            return (0);
+        if (!ft_isdigit(str[i]))
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+int	is_empty_line(char *line)
+{
+    int	i;
+
+    i = 0;
+    while (line[i] != '\0')
+    {
+        if (line[i] != ' ' && line[i] != '\t' && line[i] != '\n')
+            return (0);
+        i++;
+    }
+    return (1);
+}

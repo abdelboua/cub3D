@@ -102,7 +102,7 @@ int	parse_map(char *first_line, int fd, t_datagame *data)
 	data->map_height = 1;
 	while ((next_line = get_next_line(fd)) != NULL)
 	{
-		if (next_line[0] == '\n' || next_line[0] == '\0')
+		if (is_empty_line(next_line))
 		{
 			free(next_line);
 			ft_lstclear(&map_list, free);
