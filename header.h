@@ -8,10 +8,11 @@
 #include "./libft/libft.h"
 #include "./minilibx-linux/mlx.h"
 #include "./get_next_line/get_next_line.h"
+#include "math.h"
 
 
-#define HEIGHT 800
-#define WIDTH 600
+#define HEIGHT 600
+#define WIDTH 800
 #define ROW
 #define COL
 #define SUCCESS 0
@@ -129,7 +130,8 @@ int draw_background(t_datagame *data);
 void init_data(t_datagame *data);
 void init_player(t_datagame *data);
 
-void	put_pixel(t_datagame *data, int x, int y, int color);
+void cast_all_rays(t_datagame *data);
+void put_pixel(t_datagame *data, int x, int y, int color);
 
 // utils
 int	ft_isspace(char c);

@@ -168,7 +168,7 @@ int	process_line(char *line, t_datagame *data)
 			free(trimmed);
 			return (PARSING_ERROR);
 		}
-		data->map_firstline = ft_strdup(line);
+		data->map_firstline = ft_strtrim(line, "\n");
 		if (data->map_firstline == NULL)
 		{
 			free(trimmed);

@@ -40,10 +40,12 @@ static int	read_remaining_map(int fd, t_list **map_list, int *height)
     return (SUCCESS);
 }
 
-static int	list_to_map_array(t_datagame *data, t_list *map_list)
+static int	list_map(t_datagame *data, t_list *map_list)
 {
     t_list	*current;
     int		i;
+    char	*line;
+    int		len;
 
     data->map = malloc(sizeof(char *) * (data->map_height + 1));
     if (!data->map)
@@ -52,12 +54,17 @@ static int	list_to_map_array(t_datagame *data, t_list *map_list)
     current = map_list;
     while (i < data->map_height)
     {
-        data->map[i] = ft_strdup((char *)current->content);
+        line = (char *)current->content;
+        len = ft_strlen(line);
+        if (len > 0 && line[len - 1] == '\n')
+            len--;
+        data->map[i] = malloc(len + 1);
         if (!data->map[i])
         {
             free_array(data->map);
             return (ERROR);
         }
+        ft_strlcpy(data->map[i], line, len + 1);
         current = current->next;
         i++;
     }
@@ -78,7 +85,7 @@ int	parse_map(char *first_line, int fd, t_datagame *data)
     data->map_height = 1;
     if (read_remaining_map(fd, &map_list, &data->map_height) == ERROR)
         return (ERROR);
-    if (list_to_map_array(data, map_list) == ERROR)
+    if (list_map(data, map_list) == ERROR)
     {
         ft_lstclear(&map_list, free);
         return (ERROR);

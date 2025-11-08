@@ -21,7 +21,7 @@ void init_ray_data(t_datagame *data, int x)
         data->ray.delta_dy = fabs(1 / data->ray.ray_dir_y);
 }
 
-void init_ray_step_sideist(t_datagame *data)
+void init_ray_step_sidedist(t_datagame *data)
 {
 	if (data->ray.ray_dir_x < 0)
 	{
@@ -41,7 +41,7 @@ void init_ray_step_sideist(t_datagame *data)
 	else
 	{
 		data->ray.stepy = 1;
-		data->ray.sidedist_y = (data->ray.map.y + 1.0 - data->pos_y) * data->ray.delta_dy;
+		data->ray.sidedist_y = (data->ray.map_y + 1.0 - data->pos_y) * data->ray.delta_dy;
 	}
 }
 
@@ -66,12 +66,12 @@ void perform_dda(t_datagame *data)
 			data->ray.hit = 1;
 	}
 }
-void calculte_wall_heigt(t_datagame *data)
+void calculate_wall_height(t_datagame *data)
 {
 	if(data->ray.side == 0)
-		data->ray.dist_wall = (data->ray.map_x - data->pos_x + (1 - data->ray.stepx) / 2) / data-> ray.ray_dir_x;
+		data->ray.dist_wall = (data->ray.map_x - data->pos_x + (1 - data->ray.stepx) / 2) / data->ray.ray_dir_x;
 	else
-		data->ray.dist_wall = (data->ray.map_y - data->pos_y + (1 - data->ray.stepy) / 2) / data-> ray.ray_dir_y;
+		data->ray.dist_wall = (data->ray.map_y - data->pos_y + (1 - data->ray.stepy) / 2) / data->ray.ray_dir_y;
 	if (data->ray.dist_wall > 0)
 		data->ray.line_height = (int)(HEIGHT / data->ray.dist_wall);
 	else
@@ -94,12 +94,11 @@ void draw_wall_column(t_datagame *data, int x)
 	y = data->ray.startdraw;
 	while(y < data->ray.enddraw)
 	{
-		put_pixel(data->img, x, y, color);
+		put_pixel(data, x, y, color);
 		y++;
 	}
 }
 void cast_all_rays(t_datagame *data)
-
 {
     int x;
 

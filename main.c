@@ -57,20 +57,18 @@ int main(int ac, char **av)
 		free(data.mlx);
 		return (ERROR);
 	}
-	// --- 3. CRÉATION DE L'IMAGE-BROUILLON (LE CODE QUI MANQUAIT) ---
     data.img = malloc(sizeof(t_img));
     if (!data.img)
-        close_window(&data); // Ta fonction de sortie gère déjà ça
+        close_window(&data); 
         
     data.img->img_ptr = mlx_new_image(data.mlx, WIDTH, HEIGHT);
     if (!data.img->img_ptr)
         close_window(&data);
 
     data.img->addr = mlx_get_data_addr(data.img->img_ptr, &data.img->bpp, 
-                                     &data.img->line_len, &data->img->endian);
+                                     &data.img->line_len, &data.img->endiant);
     if (!data.img->addr)
-        close_window(&data);
-	
+		close_window(&data);
 	mlx_key_hook(data.win, handle_escape, &data);
 	mlx_hook(data.win, 17, 0, close_window, &data);
 	mlx_loop_hook(data.mlx, gameloop, &data);
