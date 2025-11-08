@@ -39,10 +39,37 @@ typedef struct s_img
 	int line_len;
 	int endiant;
 } t_img;
-
+typedef struct s_ray
+{
+	//donne dinit (par colonne x)
+	double camera_x;
+	double ray_dir_x;
+	double ray_dir_y;
+	//pos sur la grille
+	int map_x;
+	int map_y;
+	//distance jusququ prochain x ou y
+	double sidedist_x;
+	double sidedist_y;
+	//distance a sauter pour passer x ou y
+	double delta_dx;
+	double delta_dy;
+	// step +1, -1
+	int stepx;
+	int stepy;
+	//data sur le wall toucher 
+	int hit;
+	int side;
+	double dist_wall;
+	//data sur le dessin
+	int line_height;
+	int startdraw;
+	int enddraw;
+} t_ray;
 typedef struct s_datagame
 {
 	t_img *img;
+	t_ray ray;
 	char *north_texture;
 	char *south_texture;
 	char *west_texture;
@@ -67,6 +94,16 @@ typedef struct s_datagame
 	void *win;
 	int width;
 	int height;
+
+	//position
+	double pos_x;
+	double pos_y;
+	//direction//
+	double dir_x;
+	double dir_y;
+	//champ de vision joueur
+	double fov_x;
+	double fov_y;
 } t_datagame;
 
 //parsing
@@ -87,11 +124,12 @@ int parse_map(char *first_line,int fd, t_datagame *data);
 int check_walls(t_datagame *data);
 int valid_map(t_datagame *data);
 int check_neighbor(t_datagame *data, int y, int x);
-void init_data(t_datagame *data);
 int draw_background(t_datagame *data);
-// static void	put_pixel(t_datagame *data, int x, int y, int color);
 
+void init_data(t_datagame *data);
+void init_player(t_datagame *data);
 
+void	put_pixel(t_datagame *data, int x, int y, int color);
 
 // utils
 int	ft_isspace(char c);

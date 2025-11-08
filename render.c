@@ -1,6 +1,6 @@
 #include "./header.h"
 
-static void	put_pixel(t_datagame *data, int x, int y, int color)
+void	put_pixel(t_datagame *data, int x, int y, int color)
 {
 	char	*pixel;
 
