@@ -12,7 +12,8 @@ INC_DIRS = -I./includes -I./libft -I./minilibx-linux
 SRCS =	main.c \
     init.c \
     render.c \
-    parse.c \
+    parse_file.c \
+	process_file.c \
     parse_texture.c \
     parse_color.c \
     parse_map.c \
@@ -20,6 +21,8 @@ SRCS =	main.c \
     map_walls.c \
     utils1.c \
 	raycasting.c \
+	event.c \
+	move.c \
     get_next_line/get_next_line.c \
     get_next_line/get_next_line_utils.c
 

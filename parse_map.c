@@ -40,12 +40,25 @@ static int	read_remaining_map(int fd, t_list **map_list, int *height)
     return (SUCCESS);
 }
 
+static char	*copy_line(char *line)
+{
+    int		len;
+    char	*copy;
+
+    len = ft_strlen(line);
+    if (len > 0 && line[len - 1] == '\n')
+        len--;
+    copy = malloc(len + 1);
+    if (!copy)
+        return (NULL);
+    ft_strlcpy(copy, line, len + 1);
+    return (copy);
+}
+
 static int	list_map(t_datagame *data, t_list *map_list)
 {
     t_list	*current;
     int		i;
-    char	*line;
-    int		len;
 
     data->map = malloc(sizeof(char *) * (data->map_height + 1));
     if (!data->map)
@@ -54,17 +67,12 @@ static int	list_map(t_datagame *data, t_list *map_list)
     current = map_list;
     while (i < data->map_height)
     {
-        line = (char *)current->content;
-        len = ft_strlen(line);
-        if (len > 0 && line[len - 1] == '\n')
-            len--;
-        data->map[i] = malloc(len + 1);
+        data->map[i] = copy_line((char *)current->content);
         if (!data->map[i])
         {
             free_array(data->map);
             return (ERROR);
         }
-        ft_strlcpy(data->map[i], line, len + 1);
         current = current->next;
         i++;
     }

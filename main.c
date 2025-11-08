@@ -26,6 +26,7 @@ int handle_escape(int keycode, t_datagame *data)
 }
 int gameloop(t_datagame *data)
 {
+	update_player(data);
 	draw_background(data);
 	cast_all_rays(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_ptr, 0, 0);

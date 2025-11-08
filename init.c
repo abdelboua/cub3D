@@ -19,6 +19,7 @@ void init_data(t_datagame *data)
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = NULL;
+	init_keys(&data->key);
 }
 /* 
 	dir x et y : x = - 1 vers le hayt et y le bas

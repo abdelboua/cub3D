@@ -67,10 +67,20 @@ typedef struct s_ray
 	int startdraw;
 	int enddraw;
 } t_ray;
+typedef struct s_keys
+{
+    int     w;
+    int     s;
+    int     a;
+    int     d;
+    int     left;
+    int     right;
+}   t_keys;
 typedef struct s_datagame
 {
 	t_img *img;
 	t_ray ray;
+	t_keys key;
 	char *north_texture;
 	char *south_texture;
 	char *west_texture;
@@ -129,11 +139,14 @@ int draw_background(t_datagame *data);
 
 void init_data(t_datagame *data);
 void init_player(t_datagame *data);
+void init_keys(t_keys *keys);
 
 void cast_all_rays(t_datagame *data);
 void put_pixel(t_datagame *data, int x, int y, int color);
+void    update_player(t_datagame *data);
 
 // utils
+int	close_window(t_datagame *data);
 int	ft_isspace(char c);
 int ft_strlen_array(char **arr);
 void free_array(char **arr);
