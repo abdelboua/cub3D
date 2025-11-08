@@ -143,7 +143,10 @@ void init_keys(t_keys *keys);
 
 void cast_all_rays(t_datagame *data);
 void put_pixel(t_datagame *data, int x, int y, int color);
-void    update_player(t_datagame *data);
+void update_player(t_datagame *data);
+
+int	release_key(int keycode, t_datagame *data);
+int	press_key(int keycode, t_datagame *data);
 
 // utils
 int	close_window(t_datagame *data);

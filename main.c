@@ -70,7 +70,8 @@ int main(int ac, char **av)
                                      &data.img->line_len, &data.img->endiant);
     if (!data.img->addr)
 		close_window(&data);
-	mlx_key_hook(data.win, handle_escape, &data);
+    mlx_hook(data.win, 2, 1L<<0, press_key, &data);
+	mlx_hook(data.win, 3, 1L<<1, release_key, &data);
 	mlx_hook(data.win, 17, 0, close_window, &data);
 	mlx_loop_hook(data.mlx, gameloop, &data);
 	mlx_loop(data.mlx);
