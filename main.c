@@ -28,11 +28,11 @@ int gameloop(t_datagame *data)
 {
 	long long timing;
 	double delta_time;
-	
+
 	timing = current_time();
 	delta_time = (timing - data->last_time) / 1000.0;
 	data->last_time = timing;
-	update_player(data);
+	update_player(data, delta_time);
 	draw_background(data);
 	cast_all_rays(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_ptr, 0, 0);
