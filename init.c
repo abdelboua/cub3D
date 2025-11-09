@@ -21,6 +21,7 @@ void init_data(t_datagame *data)
 	data->img = NULL;
 	data->last_time = current_time();
 	init_keys(&data->key);
+	ft_memset(&data->ray, 0, sizeof(t_ray));
 }
 /* 
 	dir x et y : x = - 1 vers le hayt et y le bas
