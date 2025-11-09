@@ -462,7 +462,7 @@ C 225,30,0
 
 ---
 
-### 📁 parse_texture.c
+### 📁 parse_texture.c 
 
 #### `int parse_texture_no(char *line, t_datagame *data)`
 #### `int parse_texture_so(char *line, t_datagame *data)`
