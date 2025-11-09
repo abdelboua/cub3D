@@ -26,6 +26,12 @@ int handle_escape(int keycode, t_datagame *data)
 }
 int gameloop(t_datagame *data)
 {
+	long long timing;
+	double delta_time;
+	
+	timing = current_time();
+	delta_time = (timing - data->last_time) / 1000.0;
+	data->last_time = timing;
 	update_player(data);
 	draw_background(data);
 	cast_all_rays(data);

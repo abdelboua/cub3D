@@ -19,6 +19,7 @@ void init_data(t_datagame *data)
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = NULL;
+	data->last_time = current_time();
 	init_keys(&data->key);
 }
 /* 

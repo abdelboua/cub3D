@@ -76,3 +76,10 @@ int	is_valid_number(char *str)
     }
     return (1);
 }
+
+long long current_time(void)
+{
+	struct timeval tv;
+	gettimeofday(&tv, NULL);
+	return((tv.tv_sec * 1000) + (tv.tv_sec / 1000));
+}

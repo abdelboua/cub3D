@@ -60,13 +60,16 @@ static void	rotate_player(t_datagame *data, double rot, int clockwise)
     data->fov_y = old_fovx * sin(angle) + data->fov_y * cos(angle);
 }
 
-void	update_player(t_datagame *data)
+void	update_player(t_datagame *data, double delta_time)
 {
     double	move_speed;
     double	rot_speed;
-
+	double	basemove_speed = 5.0;
+	double  baserot_speed = 3.0;
     move_speed = 0.05;
     rot_speed = 0.03;
+	move_speed = basemove_speed * delta_time;
+	rot_speed = baserot_speed * delta_time;
     if (data->key.w == 1)
         player_move(data, move_speed, 1);
     if (data->key.s == 1)

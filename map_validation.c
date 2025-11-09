@@ -17,6 +17,7 @@ static int	check_player_position(t_datagame *data, int y, int x, char c)
         data->player_x = x;
         data->player_y = y;
         data->player_dir = c;
+		data->map[y][x] = '0';
     }
     return (player_count);
 }
