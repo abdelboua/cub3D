@@ -166,5 +166,6 @@ int				ft_lstadd_back_new(t_list **list, void *content);
 void			cleanup_data(t_datagame *data);
 int				is_valid_number(char *str);
 long long		current_time(void);
+int	get_texture_color(t_img *tex, int x, int y);
 
 #endif
