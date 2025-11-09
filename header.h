@@ -40,7 +40,11 @@ typedef struct s_img
 	int bpp;
 	int line_len;
 	int endiant;
+	int width;
+	int height;
 } t_img;
+
+
 typedef struct s_ray
 {
 	//donne dinit (par colonne x)
@@ -82,6 +86,10 @@ typedef struct s_datagame
 	t_img *img;
 	t_ray ray;
 	t_keys key;
+	t_img north_tex;
+	t_img south_tex;
+	t_img east_tex;
+	t_img west_tex;
 	char *north_texture;
 	char *south_texture;
 	char *west_texture;
@@ -143,6 +151,9 @@ void init_data(t_datagame *data);
 void init_player(t_datagame *data);
 void init_keys(t_keys *keys);
 
+int init_textures(t_datagame *data);
+
+void draw_wall_column(t_datagame *data, int x);
 void cast_all_rays(t_datagame *data);
 void put_pixel(t_datagame *data, int x, int y, int color);
 void update_player(t_datagame *data, double delta_time);

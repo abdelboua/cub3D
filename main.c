@@ -6,6 +6,14 @@ int	close_window(t_datagame *data)
 		mlx_destroy_image(data->mlx, data->img->img_ptr);
 	if (data->img)
 		free(data->img);
+	if (data->north_tex.img_ptr)
+        mlx_destroy_image(data->mlx, data->north_tex.img_ptr);
+    if (data->south_tex.img_ptr)
+        mlx_destroy_image(data->mlx, data->south_tex.img_ptr);
+    if (data->east_tex.img_ptr)
+        mlx_destroy_image(data->mlx, data->east_tex.img_ptr);
+    if (data->west_tex.img_ptr)
+        mlx_destroy_image(data->mlx, data->west_tex.img_ptr);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
@@ -62,6 +70,11 @@ int main(int ac, char **av)
 	{
 		ft_putstr_fd("Error : Failed to create window\n", 2);
 		free(data.mlx);
+		return (ERROR);
+	}
+	if (init_textures(&data) == ERROR)
+	{
+		close_window(&data);
 		return (ERROR);
 	}
     data.img = malloc(sizeof(t_img));

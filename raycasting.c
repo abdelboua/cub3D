@@ -45,7 +45,7 @@ void init_ray_step_sidedist(t_datagame *data)
 	}
 }
 
-void perform_dda(t_datagame *data)
+void dda(t_datagame *data)
 {
 	data->ray.hit = 0;
 	while (data->ray.hit == 0)
@@ -83,21 +83,7 @@ void calculate_wall_height(t_datagame *data)
 	if (data->ray.enddraw >= HEIGHT)
 		data->ray.enddraw = HEIGHT - 1;
 }
-void draw_wall_column(t_datagame *data, int x)
-{
-	int y;
-	int color;
-	if (data->ray.side == 0)
-		color = 0x00FF0000;
-	else 
-		color = 0x00AA0000;
-	y = data->ray.startdraw;
-	while(y <= data->ray.enddraw)
-	{
-		put_pixel(data, x, y, color);
-		y++;
-	}
-}
+
 void cast_all_rays(t_datagame *data)
 {
     int x;
@@ -107,7 +93,7 @@ void cast_all_rays(t_datagame *data)
     {
         init_ray_data(data, x);
         init_ray_step_sidedist(data);
-        perform_dda(data);
+        dda(data);
         calculate_wall_height(data);
         draw_wall_column(data, x);
         x++;
