@@ -45,4 +45,3 @@ int	release_key(int keycode, t_datagame *data)
 		data->key.right = 0;
 	return (0);
 }
-

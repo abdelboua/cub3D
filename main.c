@@ -7,13 +7,13 @@ int	close_window(t_datagame *data)
 	if (data->img)
 		free(data->img);
 	if (data->north_tex.img_ptr)
-        mlx_destroy_image(data->mlx, data->north_tex.img_ptr);
-    if (data->south_tex.img_ptr)
-        mlx_destroy_image(data->mlx, data->south_tex.img_ptr);
-    if (data->east_tex.img_ptr)
-        mlx_destroy_image(data->mlx, data->east_tex.img_ptr);
-    if (data->west_tex.img_ptr)
-        mlx_destroy_image(data->mlx, data->west_tex.img_ptr);
+		mlx_destroy_image(data->mlx, data->north_tex.img_ptr);
+	if (data->south_tex.img_ptr)
+		mlx_destroy_image(data->mlx, data->south_tex.img_ptr);
+	if (data->east_tex.img_ptr)
+		mlx_destroy_image(data->mlx, data->east_tex.img_ptr);
+	if (data->west_tex.img_ptr)
+		mlx_destroy_image(data->mlx, data->west_tex.img_ptr);
 	if (data->win)
 		mlx_destroy_window(data->mlx, data->win);
 	if (data->mlx)
@@ -23,7 +23,7 @@ int	close_window(t_datagame *data)
 	}
 	exit(SUCCESS);
 }
-int handle_escape(int keycode, t_datagame *data)
+int	handle_escape(int keycode, t_datagame *data)
 {
 	if (keycode == KEY_ESC)
 	{
@@ -32,10 +32,10 @@ int handle_escape(int keycode, t_datagame *data)
 	}
 	return (0);
 }
-int gameloop(t_datagame *data)
+int	gameloop(t_datagame *data)
 {
-	long long timing;
-	double delta_time;
+	long long	timing;
+	double		delta_time;
 
 	timing = current_time();
 	delta_time = (timing - data->last_time) / 1000.0;
@@ -44,29 +44,29 @@ int gameloop(t_datagame *data)
 	draw_background(data);
 	cast_all_rays(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img->img_ptr, 0, 0);
-	return 0;
+	return (0);
 }
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
-	t_datagame data;
+	t_datagame	data;
 
-	if(ac != 2)
-    {
-        ft_putstr_fd("Error: Usage ./cub3D map.cub\n", 2);
-        return (ERROR);
-    }
+	if (ac != 2)
+	{
+		ft_putstr_fd("Error: Usage ./cub3D map.cub\n", 2);
+		return (ERROR);
+	}
 	init_data(&data);
-	if(parse_file(av[1], &data) == ERROR)
-		return ERROR;
+	if (parse_file(av[1], &data) == ERROR)
+		return (ERROR);
 	init_player(&data);
 	data.mlx = mlx_init();
-	if(data.mlx == NULL)
+	if (data.mlx == NULL)
 	{
 		ft_putstr_fd("Error : Failed to initialize mlx\n", 2);
-		return ERROR;
+		return (ERROR);
 	}
 	data.win = mlx_new_window(data.mlx, WIDTH, HEIGHT, "cub3d");
-	if(data.win == NULL)
+	if (data.win == NULL)
 	{
 		ft_putstr_fd("Error : Failed to create window\n", 2);
 		free(data.mlx);
@@ -77,22 +77,19 @@ int main(int ac, char **av)
 		close_window(&data);
 		return (ERROR);
 	}
-    data.img = malloc(sizeof(t_img));
-    if (!data.img)
-        close_window(&data); 
-        
-    data.img->img_ptr = mlx_new_image(data.mlx, WIDTH, HEIGHT);
-    if (!data.img->img_ptr)
-        close_window(&data);
-
-    data.img->addr = mlx_get_data_addr(data.img->img_ptr, &data.img->bpp, 
-                                     &data.img->line_len, &data.img->endiant);
-    if (!data.img->addr)
+	data.img = malloc(sizeof(t_img));
+	if (!data.img)
 		close_window(&data);
-    mlx_hook(data.win, 2, 1L<<0, press_key, &data);
-	mlx_hook(data.win, 3, 1L<<1, release_key, &data);
+	data.img->img_ptr = mlx_new_image(data.mlx, WIDTH, HEIGHT);
+	if (!data.img->img_ptr)
+		close_window(&data);
+	data.img->addr = mlx_get_data_addr(data.img->img_ptr, &data.img->bpp,
+			&data.img->line_len, &data.img->endiant);
+	if (!data.img->addr)
+		close_window(&data);
+	mlx_hook(data.win, 2, 1L << 0, press_key, &data);
+	mlx_hook(data.win, 3, 1L << 1, release_key, &data);
 	mlx_hook(data.win, 17, 0, close_window, &data);
 	mlx_loop_hook(data.mlx, gameloop, &data);
 	mlx_loop(data.mlx);
 }
-

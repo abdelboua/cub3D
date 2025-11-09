@@ -4,13 +4,14 @@ int	parse_texture_no(char *line, t_datagame *data)
 {
 	char	*path_start;
 	int		fd;
+
 	path_start = line + 3;
 	while (*path_start != '\0' && ft_isspace(*path_start))
 		path_start++;
 	if (*path_start == '\0')
 		return (ERROR);
 	fd = open(path_start, O_RDONLY);
-	if(fd < 0)
+	if (fd < 0)
 		return (ERROR);
 	close(fd);
 	data->north_texture = ft_strdup(path_start);

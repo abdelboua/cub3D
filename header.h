@@ -1,174 +1,170 @@
 #ifndef HEADER_H
-#define HEADER_H
+# define HEADER_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include "./libft/libft.h"
-#include "./minilibx-linux/mlx.h"
-#include "./get_next_line/get_next_line.h"
-#include "math.h"
-#include <sys/time.h>
+# include "./get_next_line/get_next_line.h"
+# include "./libft/libft.h"
+# include "./minilibx-linux/mlx.h"
+# include "math.h"
+# include <fcntl.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <unistd.h>
 
+# define HEIGHT 600
+# define WIDTH 800
+# define ROW
+# define COL
+# define SUCCESS 0
+# define ERROR 1
+# define PARSING_ERROR -1
+# define LINE_EMPTY 0
+# define LINE_CONFIG 1
+# define LINE_MAP 2
 
-#define HEIGHT 600
-#define WIDTH 800
-#define ROW
-#define COL
-#define SUCCESS 0
-#define ERROR 1
-#define PARSING_ERROR -1
-#define LINE_EMPTY 0
-#define LINE_CONFIG 1
-#define LINE_MAP 2
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
 
-#define KEY_W 119
-#define KEY_A 97
-#define KEY_S 115
-#define KEY_D 100
-
-#define KEY_ESC 65307
-#define KEY_LEFT 65361
-#define KEY_RIGHT 65363
-
+# define KEY_ESC 65307
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 
 typedef struct s_img
 {
-	void *img_ptr;
-	char *addr;
-	int bpp;
-	int line_len;
-	int endiant;
-	int width;
-	int height;
-} t_img;
-
+	void		*img_ptr;
+	char		*addr;
+	int			bpp;
+	int			line_len;
+	int			endiant;
+	int			width;
+	int			height;
+}				t_img;
 
 typedef struct s_ray
 {
-	//donne dinit (par colonne x)
-	double camera_x;
-	double ray_dir_x;
-	double ray_dir_y;
-	//pos sur la grille
-	int map_x;
-	int map_y;
-	//distance jusququ prochain x ou y
-	double sidedist_x;
-	double sidedist_y;
-	//distance a sauter pour passer x ou y
-	double delta_dx;
-	double delta_dy;
+	// donne dinit (par colonne x)
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	// pos sur la grille
+	int			map_x;
+	int			map_y;
+	// distance jusququ prochain x ou y
+	double		sidedist_x;
+	double		sidedist_y;
+	// distance a sauter pour passer x ou y
+	double		delta_dx;
+	double		delta_dy;
 	// step +1, -1
-	int stepx;
-	int stepy;
-	//data sur le wall toucher 
-	int hit;
-	int side;
-	double dist_wall;
-	//data sur le dessin
-	int line_height;
-	int startdraw;
-	int enddraw;
-} t_ray;
+	int			stepx;
+	int			stepy;
+	// data sur le wall toucher
+	int			hit;
+	int			side;
+	double		dist_wall;
+	// data sur le dessin
+	int			line_height;
+	int			startdraw;
+	int			enddraw;
+}				t_ray;
 typedef struct s_keys
 {
-    int     w;
-    int     s;
-    int     a;
-    int     d;
-    int     left;
-    int     right;
-}   t_keys;
+	int			w;
+	int			s;
+	int			a;
+	int			d;
+	int			left;
+	int			right;
+}				t_keys;
 typedef struct s_datagame
 {
-	t_img *img;
-	t_ray ray;
-	t_keys key;
-	t_img north_tex;
-	t_img south_tex;
-	t_img east_tex;
-	t_img west_tex;
-	char *north_texture;
-	char *south_texture;
-	char *west_texture;
-	char *east_texture;
+	t_img		*img;
+	t_ray		ray;
+	t_keys		key;
+	t_img		north_tex;
+	t_img		south_tex;
+	t_img		east_tex;
+	t_img		west_tex;
+	char		*north_texture;
+	char		*south_texture;
+	char		*west_texture;
+	char		*east_texture;
 
-	int floor_color;
-	int ceiling_color;
+	int			floor_color;
+	int			ceiling_color;
 
 	// info de la map
-	char **map;
-	int map_height;
-	int map_width;
-	char *map_firstline;
+	char		**map;
+	int			map_height;
+	int			map_width;
+	char		*map_firstline;
 	// info joueur
 
-	int player_x;
-	int player_y;
-	char player_dir;
-	
-	int config_elements_read;
-	void *mlx;
-	void *win;
-	int width;
-	int height;
+	int			player_x;
+	int			player_y;
+	char		player_dir;
 
-	//position
-	double pos_x;
-	double pos_y;
-	//direction//
-	double dir_x;
-	double dir_y;
-	//champ de vision joueur
-	double fov_x;
-	double fov_y;
-	long long last_time;
-} t_datagame;
+	int			config_elements_read;
+	void		*mlx;
+	void		*win;
+	int			width;
+	int			height;
 
-//parsing
+	// position
+	double		pos_x;
+	double		pos_y;
+	// direction//
+	double		dir_x;
+	double		dir_y;
+	// champ de vision joueur
+	double		fov_x;
+	double		fov_y;
+	long long	last_time;
+}				t_datagame;
 
+// parsing
 
-//texture
-int parse_texture_no(char *line, t_datagame *data);
-int parse_texture_so(char *line, t_datagame *data);
-int parse_texture_ea(char *line, t_datagame *data);
-int parse_texture_we(char *line, t_datagame *data);
+// texture
+int				parse_texture_no(char *line, t_datagame *data);
+int				parse_texture_so(char *line, t_datagame *data);
+int				parse_texture_ea(char *line, t_datagame *data);
+int				parse_texture_we(char *line, t_datagame *data);
 
-int	parse_fcolor(char *line, t_datagame *data);
-int	parse_ccolor(char *line, t_datagame *data);
+int				parse_fcolor(char *line, t_datagame *data);
+int				parse_ccolor(char *line, t_datagame *data);
 
-int	process_line(char *line, t_datagame *data);
-int	parse_file(char *filename, t_datagame *data);
-int parse_map(char *first_line,int fd, t_datagame *data);
-int check_walls(t_datagame *data);
-int valid_map(t_datagame *data);
-int check_neighbor(t_datagame *data, int y, int x);
-int draw_background(t_datagame *data);
+int				process_line(char *line, t_datagame *data);
+int				parse_file(char *filename, t_datagame *data);
+int				parse_map(char *first_line, int fd, t_datagame *data);
+int				check_walls(t_datagame *data);
+int				valid_map(t_datagame *data);
+int				check_neighbor(t_datagame *data, int y, int x);
+int				draw_background(t_datagame *data);
 
-void init_data(t_datagame *data);
-void init_player(t_datagame *data);
-void init_keys(t_keys *keys);
+void			init_data(t_datagame *data);
+void			init_player(t_datagame *data);
+void			init_keys(t_keys *keys);
 
-int init_textures(t_datagame *data);
+int				init_textures(t_datagame *data);
 
-void draw_wall_column(t_datagame *data, int x);
-void cast_all_rays(t_datagame *data);
-void put_pixel(t_datagame *data, int x, int y, int color);
-void update_player(t_datagame *data, double delta_time);
+void			draw_wall_column(t_datagame *data, int x);
+void			cast_all_rays(t_datagame *data);
+void			put_pixel(t_datagame *data, int x, int y, int color);
+void			update_player(t_datagame *data, double delta_time);
 
-int	release_key(int keycode, t_datagame *data);
-int	press_key(int keycode, t_datagame *data);
+int				release_key(int keycode, t_datagame *data);
+int				press_key(int keycode, t_datagame *data);
 
 // utils
-int	close_window(t_datagame *data);
-int	ft_isspace(char c);
-int ft_strlen_array(char **arr);
-void free_array(char **arr);
-int ft_lstadd_back_new(t_list **list, void *content);
-void cleanup_data(t_datagame *data);
-int	is_valid_number(char *str);
-long long current_time(void);
+int				close_window(t_datagame *data);
+int				ft_isspace(char c);
+int				ft_strlen_array(char **arr);
+void			free_array(char **arr);
+int				ft_lstadd_back_new(t_list **list, void *content);
+void			cleanup_data(t_datagame *data);
+int				is_valid_number(char *str);
+long long		current_time(void);
 
 #endif

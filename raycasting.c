@@ -3,49 +3,52 @@
 /*
 ** Initialise les données pour le rayon de la colonne 'x'
 */
-void init_ray_data(t_datagame *data, int x)
+void	init_ray_data(t_datagame *data, int x)
 {
-    data->ray.camera_x = 2 * x / (double)WIDTH - 1;
-    data->ray.ray_dir_x = data->dir_x + data->fov_x * data->ray.camera_x;
-    data->ray.ray_dir_y = data->dir_y + data->fov_y * data->ray.camera_x;
-    data->ray.map_x = (int)data->pos_x;
-    data->ray.map_y = (int)data->pos_y;
-    if (data->ray.ray_dir_x == 0)
-        data->ray.delta_dx = 1e30;
-    else
-        data->ray.delta_dx = fabs(1 / data->ray.ray_dir_x);
-
-    if (data->ray.ray_dir_y == 0)
-        data->ray.delta_dy = 1e30;
-    else
-        data->ray.delta_dy = fabs(1 / data->ray.ray_dir_y);
+	data->ray.camera_x = 2 * x / (double)WIDTH - 1;
+	data->ray.ray_dir_x = data->dir_x + data->fov_x * data->ray.camera_x;
+	data->ray.ray_dir_y = data->dir_y + data->fov_y * data->ray.camera_x;
+	data->ray.map_x = (int)data->pos_x;
+	data->ray.map_y = (int)data->pos_y;
+	if (data->ray.ray_dir_x == 0)
+		data->ray.delta_dx = 1e30;
+	else
+		data->ray.delta_dx = fabs(1 / data->ray.ray_dir_x);
+	if (data->ray.ray_dir_y == 0)
+		data->ray.delta_dy = 1e30;
+	else
+		data->ray.delta_dy = fabs(1 / data->ray.ray_dir_y);
 }
 
-void init_ray_step_sidedist(t_datagame *data)
+void	init_ray_step_sidedist(t_datagame *data)
 {
 	if (data->ray.ray_dir_x < 0)
 	{
 		data->ray.stepx = -1;
-		data->ray.sidedist_x = (data->pos_x - data->ray.map_x) * data->ray.delta_dx;
+		data->ray.sidedist_x = (data->pos_x - data->ray.map_x)
+			* data->ray.delta_dx;
 	}
-	else 
+	else
 	{
 		data->ray.stepx = 1;
-		data->ray.sidedist_x = (data->ray.map_x + 1.0 - data->pos_x) * data->ray.delta_dx;
+		data->ray.sidedist_x = (data->ray.map_x + 1.0 - data->pos_x)
+			* data->ray.delta_dx;
 	}
 	if (data->ray.ray_dir_y < 0)
 	{
 		data->ray.stepy = -1;
-		data->ray.sidedist_y = (data->pos_y - data->ray.map_y) * data->ray.delta_dy;
+		data->ray.sidedist_y = (data->pos_y - data->ray.map_y)
+			* data->ray.delta_dy;
 	}
 	else
 	{
 		data->ray.stepy = 1;
-		data->ray.sidedist_y = (data->ray.map_y + 1.0 - data->pos_y) * data->ray.delta_dy;
+		data->ray.sidedist_y = (data->ray.map_y + 1.0 - data->pos_y)
+			* data->ray.delta_dy;
 	}
 }
 
-void dda(t_datagame *data)
+void	dda(t_datagame *data)
 {
 	data->ray.hit = 0;
 	while (data->ray.hit == 0)
@@ -66,12 +69,14 @@ void dda(t_datagame *data)
 			data->ray.hit = 1;
 	}
 }
-void calculate_wall_height(t_datagame *data)
+void	calculate_wall_height(t_datagame *data)
 {
-	if(data->ray.side == 0)
-		data->ray.dist_wall = (data->ray.map_x - data->pos_x + (1 - data->ray.stepx) / 2) / data->ray.ray_dir_x;
+	if (data->ray.side == 0)
+		data->ray.dist_wall = (data->ray.map_x - data->pos_x + (1
+					- data->ray.stepx) / 2) / data->ray.ray_dir_x;
 	else
-		data->ray.dist_wall = (data->ray.map_y - data->pos_y + (1 - data->ray.stepy) / 2) / data->ray.ray_dir_y;
+		data->ray.dist_wall = (data->ray.map_y - data->pos_y + (1
+					- data->ray.stepy) / 2) / data->ray.ray_dir_y;
 	if (data->ray.dist_wall > 0)
 		data->ray.line_height = (int)(HEIGHT / data->ray.dist_wall);
 	else
@@ -84,18 +89,18 @@ void calculate_wall_height(t_datagame *data)
 		data->ray.enddraw = HEIGHT - 1;
 }
 
-void cast_all_rays(t_datagame *data)
+void	cast_all_rays(t_datagame *data)
 {
-    int x;
+	int x;
 
-    x = 0;
-    while (x < WIDTH)
-    {
-        init_ray_data(data, x);
-        init_ray_step_sidedist(data);
-        dda(data);
-        calculate_wall_height(data);
-        draw_wall_column(data, x);
-        x++;
-    }
+	x = 0;
+	while (x < WIDTH)
+	{
+		init_ray_data(data, x);
+		init_ray_step_sidedist(data);
+		dda(data);
+		calculate_wall_height(data);
+		draw_wall_column(data, x);
+		x++;
+	}
 }

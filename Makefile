@@ -23,6 +23,7 @@ SRCS =	main.c \
 	raycasting.c \
 	event.c \
 	move.c \
+	textures.c \
     get_next_line/get_next_line.c \
     get_next_line/get_next_line_utils.c
 
