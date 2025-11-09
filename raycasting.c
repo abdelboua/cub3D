@@ -92,7 +92,7 @@ void draw_wall_column(t_datagame *data, int x)
 	else 
 		color = 0x00AA0000;
 	y = data->ray.startdraw;
-	while(y < data->ray.enddraw)
+	while(y <= data->ray.enddraw)
 	{
 		put_pixel(data, x, y, color);
 		y++;
