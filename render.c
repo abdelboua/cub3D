@@ -4,17 +4,10 @@ void    put_pixel(t_datagame *data, int x, int y, int color)
 {
     char    *pixel;
 
-    // --- CORRECTION ---
-    // Vérifie si le pixel est en dehors des limites de l'ÉCRAN
     if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
         return ;
-    // --- FIN DE LA CORRECTION ---
-
-    // Ton calcul d'adresse est parfait
     pixel = data->img->addr + ((size_t)y * data->img->line_len
             + (size_t)x * (data->img->bpp >> 3));
-            
-    // Ton écriture de pixel est parfaite
     *(unsigned int *)pixel = color;
 }
 

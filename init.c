@@ -19,8 +19,8 @@ void init_data(t_datagame *data)
 	data->mlx = NULL;
 	data->win = NULL;
 	data->img = NULL;
+	init_keys(&data->key);	
 	data->last_time = current_time();
-	init_keys(&data->key);
 	ft_memset(&data->ray, 0, sizeof(t_ray));
 }
 /* 
